@@ -1,0 +1,248 @@
+* { box-sizing: border-box; }
+
+:root {
+  --card-bg: rgba(255,255,255,0.10);
+  --card-border: rgba(255,255,255,0.18);
+  --text: #f4f1ea;
+  --text-dim: rgba(244,241,234,0.65);
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Nunito', sans-serif;
+  color: var(--text);
+  overflow: hidden;
+  transition: background 1.2s ease;
+}
+
+/* ---------------- Scenes ---------------- */
+
+body[data-scene="rain"] {
+  background: linear-gradient(180deg, #2b3348 0%, #1c2333 60%, #131826 100%);
+}
+body[data-scene="cafe"] {
+  background: linear-gradient(180deg, #4a3222 0%, #382613 60%, #241708 100%);
+}
+body[data-scene="forest"] {
+  background: linear-gradient(180deg, #24361d 0%, #1b2a15 60%, #10190c 100%);
+}
+
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.scene-layer { position: absolute; inset: 0; }
+
+/* Rain drops */
+.raindrop {
+  position: absolute;
+  top: -10%;
+  width: 1.5px;
+  background: rgba(199, 211, 224, 0.35);
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  to { transform: translateY(120vh); }
+}
+
+/* Cafe steam */
+.steam {
+  position: absolute;
+  bottom: 10%;
+  width: 3px;
+  border-radius: 3px;
+  background: rgba(242, 232, 213, 0.18);
+  filter: blur(2px);
+  animation: rise ease-in-out infinite;
+}
+@keyframes rise {
+  0% { transform: translateY(0) scaleX(1); opacity: 0; }
+  20% { opacity: 0.6; }
+  100% { transform: translateY(-70vh) scaleX(2.4); opacity: 0; }
+}
+
+/* Forest leaves */
+.leaf {
+  position: absolute;
+  top: -5%;
+  width: 8px;
+  height: 8px;
+  background: rgba(217, 226, 160, 0.5);
+  border-radius: 0 60% 0 60%;
+  animation: drift linear infinite;
+}
+@keyframes drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(30px, 55vh) rotate(180deg); }
+  100% { transform: translate(-10px, 115vh) rotate(360deg); }
+}
+
+/* ---------------- Card ---------------- */
+
+.card {
+  position: relative;
+  z-index: 1;
+  width: min(400px, 88vw);
+  margin: 6vh auto;
+  padding: 32px 30px 26px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  backdrop-filter: blur(18px);
+  text-align: center;
+  box-shadow: 0 30px 60px -25px rgba(0,0,0,0.5);
+}
+
+.scene-switch {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+
+.scene-btn {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.scene-btn.active, .scene-btn:hover {
+  background: rgba(255,255,255,0.14);
+  color: var(--text);
+}
+
+.mode-label {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 0 0 4px;
+}
+
+.clock {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 56px;
+  margin: 0 0 20px;
+  letter-spacing: 0.02em;
+}
+
+.ring-wrap {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 22px;
+  position: relative;
+}
+
+.ring { width: 100%; height: 100%; transform: rotate(-90deg); }
+
+.ring-track {
+  fill: none;
+  stroke: rgba(255,255,255,0.12);
+  stroke-width: 6;
+}
+
+.ring-progress {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 578;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.ctrl-btn {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.ctrl-btn:hover { background: rgba(255,255,255,0.12); }
+.ctrl-btn:active { transform: scale(0.96); }
+.ctrl-btn.primary {
+  background: var(--text);
+  color: #1c2333;
+}
+.ctrl-btn.primary:hover { background: #fff; }
+
+.session-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+
+.session-btn {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-family: 'Nunito', sans-serif;
+  font-size: 12.5px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s, color 0.2s;
+}
+.session-btn.active, .session-btn:hover {
+  background: rgba(255,255,255,0.10);
+  color: var(--text);
+}
+
+.sound-row {
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sound-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+.sound-toggle input { accent-color: var(--text); }
+
+.volume-wrap { padding: 0 20px; }
+.volume-wrap input { width: 100%; }
+
+.session-count {
+  margin: 16px 0 0;
+  font-size: 11.5px;
+  color: var(--text-dim);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .raindrop, .steam, .leaf { animation: none !important; }
+}

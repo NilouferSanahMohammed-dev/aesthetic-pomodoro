@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>focus &middot; a cozy pomodoro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body data-scene="rain">
+
+  <div class="scene" id="scene">
+    <div class="scene-layer" id="sceneLayer"></div>
+  </div>
+
+  <main class="card">
+    <div class="scene-switch" id="sceneSwitch">
+      <button class="scene-btn active" data-scene="rain">rain</button>
+      <button class="scene-btn" data-scene="cafe">cafe</button>
+      <button class="scene-btn" data-scene="forest">forest</button>
+    </div>
+
+    <p class="mode-label" id="modeLabel">focus</p>
+    <h1 class="clock" id="clock">25:00</h1>
+
+    <div class="ring-wrap">
+      <svg class="ring" viewBox="0 0 200 200">
+        <circle class="ring-track" cx="100" cy="100" r="92" />
+        <circle class="ring-progress" id="ringProgress" cx="100" cy="100" r="92" />
+      </svg>
+    </div>
+
+    <div class="controls">
+      <button class="ctrl-btn primary" id="startPauseBtn">start</button>
+      <button class="ctrl-btn" id="resetBtn">reset</button>
+    </div>
+
+    <div class="session-row">
+      <button class="session-btn active" data-mins="25" data-mode="focus">focus 25</button>
+      <button class="session-btn" data-mins="5" data-mode="break">short break 5</button>
+      <button class="session-btn" data-mins="15" data-mode="break">long break 15</button>
+    </div>
+
+    <div class="sound-row">
+      <label class="sound-toggle">
+        <input type="checkbox" id="soundToggle" />
+        <span id="soundLabel">ambient sound off</span>
+      </label>
+      <div class="volume-wrap" id="volumeWrap">
+        <input type="range" id="volumeSlider" min="0" max="100" value="45" />
+      </div>
+    </div>
+
+    <p class="session-count" id="sessionCount">0 sessions completed today</p>
+  </main>
+
+<script src="script.js"></script>
+</body>
+</html>
