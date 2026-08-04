@@ -32,6 +32,13 @@ I use this on my own laptop while working, usually with the forest scene and the
 - Turning on ambient sound requires one click somewhere on the page first. Browsers block audio from starting completely silently, and that's a browser policy, not a bug here
 - Session counts are stored in `localStorage`, so they're per browser, not synced anywhere
 
+## How it works, in plain English
+
+- Pick a session length, and a countdown starts ticking down once a second, updating the clock and the ring around it
+- Switch scenes and the background swaps colors, and a fresh batch of animated particles (raindrops, steam, or leaves) gets built for that scene
+- If sound is on: generate random noise in the browser, run it through a different filter per scene (high-pass for rain, low-pass for cafe murmur, band-pass plus the occasional chirp for forest), and fade it in
+- When the timer hits zero, log a completed session for the day and let you know
+
 ## Customizing
 
 Everything about tuning is near the top of `script.js` and in the scene builder functions.
